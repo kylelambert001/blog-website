@@ -1,4 +1,15 @@
-<%- include('header') %>
-<h1>This is the Home page</h1>
+<%- include('partials/header') %>
+<h1 class="mb-4">Home Page</h1>
 <p><%- content %></p>
-<%- include('footer') %>
+<% posts.forEach(post => { %>
+<div class="card">
+  <div class="card-header">
+    Posts
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><%-post.title %></h5>
+    <p class="card-text"><%-post.content %></p>
+  </div>
+</div>
+<% }) %>
+<%- include('partials/footer') %>
