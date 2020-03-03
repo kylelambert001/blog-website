@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const _ = require('lodash');
 
 const posts = [];
 
@@ -38,17 +39,19 @@ app.get('/compose', (req, res) => {
 })
 
 app.get('/posts/:title', (req, res) => {
-  const param = req.params.title
-
-  function formatString(str) {
-    return str.toLowerCase().replace(' ', '-');
-  }
+  const requestedTitle = _.lowerCase(req.params.title);
 
   posts.forEach(post => {
-    if (formatString(post.title) === formatString(param)) {
-      console.log(param);
+    const storedTitle = _.lowerCase(post.title);
+
+    if (storedTitle === requestedTitle) {
+      res.render('post', {
+        post: post
+      });
     }
+
   })
+
 })
 
 app.post('/compose', (req, res) => {
